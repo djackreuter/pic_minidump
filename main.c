@@ -203,8 +203,18 @@ typedef BOOL (WINAPI *MiniDumpWriteDump) (
     PMINIDUMP_CALLBACK_INFORMATION    CallbackParam
 );
 
+typedef HANDLE (WINAPI *pOpenProcess) (
+    DWORD dwDesiredAccess,
+    BOOL  bInheritHandle,
+    DWORD dwProcessId
+);
+
 int main()
 {
+    char kern32[] = { 'k', 'e', 'r', 'n', 'e', 'l', '3', '2', '.', 'd', 'l', 'l', '\0'};
+    char procName[] = { 'O', 'p', 'e', 'n', 'P', 'r', 'o', 'c', 'e', 's', 's', '\0'};
+
+    pOpenProcess OpenProcess = (pOpenProcess) GetProcAddress(GetModuleHandle(kern32), procName);
 
     return 0;
 }
