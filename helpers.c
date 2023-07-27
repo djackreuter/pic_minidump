@@ -60,7 +60,7 @@ FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char *sProcName)
 
     DWORD *pEAT = (DWORD *) (pBaseAddr + pImageExportDir->AddressOfFunctions);
     DWORD *pFuncNameTbl = (DWORD *) (pBaseAddr + pImageExportDir->AddressOfNames);
-    DWORD *pOrdTbl = (DWORD *) (pBaseAddr + pImageExportDir->AddressOfNameOrdinals);
+    WORD *pOrdTbl = (WORD *) (pBaseAddr + pImageExportDir->AddressOfNameOrdinals);
 
     void *pProcAddr = NULL;
 

