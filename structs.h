@@ -289,6 +289,6 @@ typedef BOOL (WINAPI *pCloseHandle) (
     HANDLE hObject
 );
 
-typedef char *(WINAPI *_pstrdup) (
-   const char *strSource
-);
+// typedef char *(WINAPI *_pstrdup) (
+//    const char *strSource
+// );

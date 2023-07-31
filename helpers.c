@@ -17,14 +17,6 @@ int my_strcmp (const char *p1, const char *p2) {
     return c1 - c2;
 }
 
-char * my_strdup(const char *str)
-{
-    if (str == NULL)
-        return NULL;
-
-    
-}
-
 
 HMODULE WINAPI hlpGetModuleHandle(LPCWSTR sModuleName)
 {

