@@ -48,92 +48,92 @@ typedef struct _MINIDUMP_USER_STREAM_INFORMATION {
     PMINIDUMP_USER_STREAM UserStreamArray;
 } MINIDUMP_USER_STREAM_INFORMATION, *PMINIDUMP_USER_STREAM_INFORMATION;
 
-// typedef struct _MINIDUMP_THREAD_CALLBACK {
-//     ULONG   ThreadId;
-//     HANDLE  ThreadHandle;
-//     ULONG   Pad;
-//     CONTEXT Context;
-//     ULONG   SizeOfContext;
-//     ULONG64 StackBase;
-//     ULONG64 StackEnd;
-// } MINIDUMP_THREAD_CALLBACK, *PMINIDUMP_THREAD_CALLBACK;
+typedef struct _MINIDUMP_THREAD_CALLBACK {
+    ULONG   ThreadId;
+    HANDLE  ThreadHandle;
+    ULONG   Pad;
+    CONTEXT Context;
+    ULONG   SizeOfContext;
+    ULONG64 StackBase;
+    ULONG64 StackEnd;
+} MINIDUMP_THREAD_CALLBACK, *PMINIDUMP_THREAD_CALLBACK;
 
-// typedef struct _MINIDUMP_THREAD_EX_CALLBACK {
-//     ULONG   ThreadId;
-//     HANDLE  ThreadHandle;
-//     ULONG   Pad;
-//     CONTEXT Context;
-//     ULONG   SizeOfContext;
-//     ULONG64 StackBase;
-//     ULONG64 StackEnd;
-//     ULONG64 BackingStoreBase;
-//     ULONG64 BackingStoreEnd;
-// } MINIDUMP_THREAD_EX_CALLBACK, *PMINIDUMP_THREAD_EX_CALLBACK;
+typedef struct _MINIDUMP_THREAD_EX_CALLBACK {
+    ULONG   ThreadId;
+    HANDLE  ThreadHandle;
+    ULONG   Pad;
+    CONTEXT Context;
+    ULONG   SizeOfContext;
+    ULONG64 StackBase;
+    ULONG64 StackEnd;
+    ULONG64 BackingStoreBase;
+    ULONG64 BackingStoreEnd;
+} MINIDUMP_THREAD_EX_CALLBACK, *PMINIDUMP_THREAD_EX_CALLBACK;
 
-// typedef struct _MINIDUMP_MODULE_CALLBACK {
-//     PWCHAR           FullPath;
-//     ULONG64          BaseOfImage;
-//     ULONG            SizeOfImage;
-//     ULONG            CheckSum;
-//     ULONG            TimeDateStamp;
-//     VS_FIXEDFILEINFO VersionInfo;
-//     PVOID            CvRecord;
-//     ULONG            SizeOfCvRecord;
-//     PVOID            MiscRecord;
-//     ULONG            SizeOfMiscRecord;
-// } MINIDUMP_MODULE_CALLBACK, *PMINIDUMP_MODULE_CALLBACK;
+typedef struct _MINIDUMP_MODULE_CALLBACK {
+    PWCHAR           FullPath;
+    ULONG64          BaseOfImage;
+    ULONG            SizeOfImage;
+    ULONG            CheckSum;
+    ULONG            TimeDateStamp;
+    VS_FIXEDFILEINFO VersionInfo;
+    PVOID            CvRecord;
+    ULONG            SizeOfCvRecord;
+    PVOID            MiscRecord;
+    ULONG            SizeOfMiscRecord;
+} MINIDUMP_MODULE_CALLBACK, *PMINIDUMP_MODULE_CALLBACK;
 
-// typedef struct _MINIDUMP_INCLUDE_THREAD_CALLBACK {
-//     ULONG ThreadId;
-// } MINIDUMP_INCLUDE_THREAD_CALLBACK, *PMINIDUMP_INCLUDE_THREAD_CALLBACK;
+typedef struct _MINIDUMP_INCLUDE_THREAD_CALLBACK {
+    ULONG ThreadId;
+} MINIDUMP_INCLUDE_THREAD_CALLBACK, *PMINIDUMP_INCLUDE_THREAD_CALLBACK;
 
-// typedef struct _MINIDUMP_INCLUDE_MODULE_CALLBACK {
-//     ULONG64 BaseOfImage;
-// } MINIDUMP_INCLUDE_MODULE_CALLBACK, *PMINIDUMP_INCLUDE_MODULE_CALLBACK;
+typedef struct _MINIDUMP_INCLUDE_MODULE_CALLBACK {
+    ULONG64 BaseOfImage;
+} MINIDUMP_INCLUDE_MODULE_CALLBACK, *PMINIDUMP_INCLUDE_MODULE_CALLBACK;
 
-// typedef struct _MINIDUMP_IO_CALLBACK {
-//     HANDLE  Handle;
-//     ULONG64 Offset;
-//     PVOID   Buffer;
-//     ULONG   BufferBytes;
-// } MINIDUMP_IO_CALLBACK, *PMINIDUMP_IO_CALLBACK;
+typedef struct _MINIDUMP_IO_CALLBACK {
+    HANDLE  Handle;
+    ULONG64 Offset;
+    PVOID   Buffer;
+    ULONG   BufferBytes;
+} MINIDUMP_IO_CALLBACK, *PMINIDUMP_IO_CALLBACK;
 
-// typedef struct _MINIDUMP_READ_MEMORY_FAILURE_CALLBACK {
-//     ULONG64 Offset;
-//     ULONG   Bytes;
-//     HRESULT FailureStatus;
-// } MINIDUMP_READ_MEMORY_FAILURE_CALLBACK, *PMINIDUMP_READ_MEMORY_FAILURE_CALLBACK;
+typedef struct _MINIDUMP_READ_MEMORY_FAILURE_CALLBACK {
+    ULONG64 Offset;
+    ULONG   Bytes;
+    HRESULT FailureStatus;
+} MINIDUMP_READ_MEMORY_FAILURE_CALLBACK, *PMINIDUMP_READ_MEMORY_FAILURE_CALLBACK;
 
-// typedef BOOL (WINAPI *MINIDUMP_VM_QUERY_CALLBACK) (
-//     PVOID               CallbackParam,
-//     ULONG64             BaseAddress,
-//     PMEMORY_BASIC_INFORMATION64 VirtualMemoryInformation
-// );
+typedef BOOL (WINAPI *MINIDUMP_VM_QUERY_CALLBACK) (
+    PVOID               CallbackParam,
+    ULONG64             BaseAddress,
+    PMEMORY_BASIC_INFORMATION64 VirtualMemoryInformation
+);
 
-// typedef BOOL (WINAPI *MINIDUMP_VM_PRE_READ_CALLBACK)(
-//     PVOID               CallbackParam,
-//     ULONG64             BaseAddress
-// );
+typedef BOOL (WINAPI *MINIDUMP_VM_PRE_READ_CALLBACK)(
+    PVOID               CallbackParam,
+    ULONG64             BaseAddress
+);
 
-// typedef struct _MINIDUMP_CALLBACK_INPUT {
-//     ULONG  ProcessId;
-//     HANDLE ProcessHandle;
-//     ULONG  CallbackType;
-//     union {
-//         HRESULT                               Status;
-//         MINIDUMP_THREAD_CALLBACK              Thread;
-//         MINIDUMP_THREAD_EX_CALLBACK           ThreadEx;
-//         MINIDUMP_MODULE_CALLBACK              Module;
-//         MINIDUMP_INCLUDE_THREAD_CALLBACK      IncludeThread;
-//         MINIDUMP_INCLUDE_MODULE_CALLBACK      IncludeModule;
-//         MINIDUMP_IO_CALLBACK                  Io;
-//         MINIDUMP_READ_MEMORY_FAILURE_CALLBACK ReadMemoryFailure;
-//         ULONG                                 SecondaryFlags;
-//         MINIDUMP_VM_QUERY_CALLBACK            VmQuery;
-//         MINIDUMP_VM_PRE_READ_CALLBACK         VmPreRead;
-//         MINIDUMP_VM_POST_READ_CALLBACK        VmPostRead;
-//     };
-// } MINIDUMP_CALLBACK_INPUT, *PMINIDUMP_CALLBACK_INPUT;
+typedef struct _MINIDUMP_CALLBACK_INPUT {
+    ULONG  ProcessId;
+    HANDLE ProcessHandle;
+    ULONG  CallbackType;
+    union {
+        HRESULT                               Status;
+        MINIDUMP_THREAD_CALLBACK              Thread;
+        MINIDUMP_THREAD_EX_CALLBACK           ThreadEx;
+        MINIDUMP_MODULE_CALLBACK              Module;
+        MINIDUMP_INCLUDE_THREAD_CALLBACK      IncludeThread;
+        MINIDUMP_INCLUDE_MODULE_CALLBACK      IncludeModule;
+        MINIDUMP_IO_CALLBACK                  Io;
+        MINIDUMP_READ_MEMORY_FAILURE_CALLBACK ReadMemoryFailure;
+        ULONG                                 SecondaryFlags;
+    //     MINIDUMP_VM_QUERY_CALLBACK            VmQuery;
+    //     MINIDUMP_VM_PRE_READ_CALLBACK         VmPreRead;
+    //     MINIDUMP_VM_POST_READ_CALLBACK        VmPostRead;
+    };
+} MINIDUMP_CALLBACK_INPUT, *PMINIDUMP_CALLBACK_INPUT;
 
 // typedef BOOL (WINAPI *MINIDUMP_VM_POST_READ_CALLBACK)(
 //     PVOID               CallbackParam,
@@ -141,56 +141,56 @@ typedef struct _MINIDUMP_USER_STREAM_INFORMATION {
 //     MINIDUMP_CALLBACK_OUTPUT *CallbackOutput
 // );
 
-// typedef struct _MINIDUMP_MEMORY_INFO {
-//     ULONG64 BaseAddress;
-//     ULONG64 AllocationBase;
-//     ULONG32 AllocationProtect;
-//     ULONG32 __alignment1;
-//     ULONG64 RegionSize;
-//     ULONG32 State;
-//     ULONG32 Protect;
-//     ULONG32 Type;
-//     ULONG32 __alignment2;
-// } MINIDUMP_MEMORY_INFO, *PMINIDUMP_MEMORY_INFO;
+typedef struct _MINIDUMP_MEMORY_INFO {
+    ULONG64 BaseAddress;
+    ULONG64 AllocationBase;
+    ULONG32 AllocationProtect;
+    ULONG32 __alignment1;
+    ULONG64 RegionSize;
+    ULONG32 State;
+    ULONG32 Protect;
+    ULONG32 Type;
+    ULONG32 __alignment2;
+} MINIDUMP_MEMORY_INFO, *PMINIDUMP_MEMORY_INFO;
 
-// typedef struct _MINIDUMP_CALLBACK_OUTPUT {
-//     union {
-//         ULONG   ModuleWriteFlags;
-//         ULONG   ThreadWriteFlags;
-//         ULONG   SecondaryFlags;
-//         struct {
-//             ULONG64 MemoryBase;
-//             ULONG   MemorySize;
-//         };
-//         struct {
-//             BOOL CheckCancel;
-//             BOOL Cancel;
-//         };
-//         HANDLE  Handle;
-//         struct {
-//             MINIDUMP_MEMORY_INFO VmRegion;
-//             BOOL                 Continue;
-//         };
-//         struct {
-//             HRESULT              VmQueryStatus;
-//             MINIDUMP_MEMORY_INFO VmQueryResult;
-//         };
-//         struct {
-//             HRESULT VmReadStatus;
-//             ULONG   VmReadBytesCompleted;
-//         };
-//         HRESULT Status;
-//     };
-// } MINIDUMP_CALLBACK_OUTPUT, *PMINIDUMP_CALLBACK_OUTPUT;
+typedef struct _MINIDUMP_CALLBACK_OUTPUT {
+    union {
+        ULONG   ModuleWriteFlags;
+        ULONG   ThreadWriteFlags;
+        ULONG   SecondaryFlags;
+        struct {
+            ULONG64 MemoryBase;
+            ULONG   MemorySize;
+        };
+        struct {
+            BOOL CheckCancel;
+            BOOL Cancel;
+        };
+        HANDLE  Handle;
+        struct {
+            MINIDUMP_MEMORY_INFO VmRegion;
+            BOOL                 Continue;
+        };
+        struct {
+            HRESULT              VmQueryStatus;
+            MINIDUMP_MEMORY_INFO VmQueryResult;
+        };
+        struct {
+            HRESULT VmReadStatus;
+            ULONG   VmReadBytesCompleted;
+        };
+        HRESULT Status;
+    };
+} MINIDUMP_CALLBACK_OUTPUT, *PMINIDUMP_CALLBACK_OUTPUT;
 
-// typedef BOOL (WINAPI *MINIDUMP_CALLBACK_ROUTINE) (
-//     PVOID CallbackParam,
-//     const PMINIDUMP_CALLBACK_INPUT CallbackInput,
-//     PMINIDUMP_CALLBACK_OUTPUT CallbackOutput
-// );
+typedef BOOL (WINAPI *MINIDUMP_CALLBACK_ROUTINE) (
+    PVOID CallbackParam,
+    const PMINIDUMP_CALLBACK_INPUT CallbackInput,
+    PMINIDUMP_CALLBACK_OUTPUT CallbackOutput
+);
 
 typedef struct _MINIDUMP_CALLBACK_INFORMATION {
-    //MINIDUMP_CALLBACK_ROUTINE CallbackRoutine;
+    MINIDUMP_CALLBACK_ROUTINE CallbackRoutine;
     PVOID                     CallbackParam;
 } MINIDUMP_CALLBACK_INFORMATION, *PMINIDUMP_CALLBACK_INFORMATION;
 
@@ -287,4 +287,8 @@ typedef HANDLE (WINAPI *pCreateFileA) (
 
 typedef BOOL (WINAPI *pCloseHandle) (
     HANDLE hObject
+);
+
+typedef char *(WINAPI *_pstrdup) (
+   const char *strSource
 );
