@@ -40,10 +40,8 @@ HMODULE WINAPI hlpGetModuleHandle(LPCWSTR sModuleName)
     {
         LDR_DATA_TABLE_ENTRY *pEntry = (LDR_DATA_TABLE_ENTRY *) ((BYTE *) pListEntry - sizeof(LIST_ENTRY));
 
-        // printf("Looking: %ls Have: %ls\n", (const char *) sModuleName, (const char *) pEntry->BaseDllName.Buffer);
         if (my_strcmp((const char *)pEntry->BaseDllName.Buffer, (const char *) sModuleName) == 0)
         {
-            //printf("found: %ls\n", sModuleName);
             return (HMODULE) pEntry->DllBase;
         }
     }
@@ -72,44 +70,22 @@ FARPROC WINAPI hlpGetProcAddress(HMODULE hMod, char *sProcName)
         pEAT += ( (IMAGE_ORDINAL( (UINT64)sProcName) - pImageExportDir->Base ) * sizeof(DWORD) );
         pProcAddr = (FARPROC) ( pBaseAddr + DEREF_32(pEAT)); 
     }
-    // if (((DWORD_PTR) sProcName >> 16) == 0) 
-    // {
-    //     WORD ordinal = (WORD) sProcName & 0xFFFF;
-    //     DWORD base = pImageExportDir->Base;
-
-    //     if (ordinal < base || ordinal >= base + pImageExportDir->NumberOfFunctions)
-    //         return NULL;
-
-    //     pProcAddr = (FARPROC) (pBaseAddr + (DWORD_PTR) pEAT[ordinal - base]);
-    // }
     else 
     {
         for (DWORD i = 0; i < pImageExportDir->NumberOfNames; i++)
         {
             char *sTmpFunc = (char *) pBaseAddr + (DWORD_PTR) pFuncNameTbl[i];
 
-            //printf("Looking: %s Have: %s\n", (const char *)sProcName, (const char *)sTmpFunc);
             if (my_strcmp(sProcName, sTmpFunc) == 0)
             {
-                //printf("found: %s\n", sProcName);
                 WORD funcIndex = pOrdTbl[i];
                 pProcAddr = (FARPROC) (pBaseAddr + (DWORD_PTR) pEAT[funcIndex]);
-                //printf("addr: %p\n", pProcAddr);
                 break;
             }
         }
     }
 
-    // if ((char *) pProcAddr >= (char *) pImageExportDir && (char *) pProcAddr < ((char *) pImageExportDir + pExportDataDir->Size))
-    // {
-    //     WCHAR smsvcrt[] = { L'm', L's', L'v', L'c', L'r', L't', L'.', L'd', L'l', L'l', 0 };
-    //     HANDLE msvcrt = hlpGetModuleHandle(smsvcrt);
-    //     char sstrdup[] = { '_', 's', 't', 'r', 'd', 'u', 'p', 0 };
-    //     _pstrdup _mystrdup = (_pstrdup) hlpGetProcAddress(msvcrt, sstrdup);
-
-    //     char *sFwdDll = _mystrdup((char *) pProcAddr);
-
-    // }
+    // TODO: handle forward functions
 
     return (FARPROC) pProcAddr;
 }
